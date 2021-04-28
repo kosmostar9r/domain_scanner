@@ -43,6 +43,7 @@ class DomainsChecker(threading.Thread):
                 try:
                     ip = socket.gethostbyname(complete_host)
                     result = f'{complete_host} {ip}'
+                    print(result)
                     self.results.append(result)
                 except socket.gaierror:
                     pass
@@ -103,10 +104,6 @@ class Extractor:
             scanner.start()
         for scanner in scanners:
             scanner.join()
-        for scanner in scanners:
-            if scanner.results:
-                for result in scanner.results:
-                    print(result)
         if all(len(scanner.results) == 0 for scanner in scanners):
             print('There is no domains')
 
